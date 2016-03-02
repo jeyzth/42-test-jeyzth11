@@ -1,6 +1,9 @@
       body {
           margin: 0px;
           padding: 0px;
+          background-image: url(/static/img/cell10x10.gif);
+          background-position: top center;
+          background-repeat: repeat;
       }
 
       #workspace {
