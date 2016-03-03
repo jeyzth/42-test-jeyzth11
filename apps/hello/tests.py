@@ -42,7 +42,6 @@ class AppicantTest(TestCase):
             skype=u"aldar.kose",
             others="Хтозна"
         )
-                                                                                                                
         new_rec3 = Applicant(
             name=u"Ходжа",
             surname=u"Насрідін",
@@ -58,10 +57,10 @@ class AppicantTest(TestCase):
         c = Client()
         response = c.get('http://localhost:8080')
         ucontent = response.content.decode('utf8')
-        self.assertNotIn(u"Алдар",ucontent)
-        self.assertNotIn(u"Косе",ucontent)
-        self.assertIn(u"9 березня 1973 р.",ucontent)
-        self.assertIn(u"jeyzth@gmail.com",ucontent)
-        self.assertIn(u"jeyzth@khavr.com",ucontent)
-        self.assertNot(u"hodzha",ucontent)
-        self.assertNotIn(u"nasredin",ucontent)
+        self.assertNotIn(u"Алдар", ucontent)
+        self.assertNotIn(u"Косе", ucontent)
+        self.assertIn(u"9 березня 1973 р.", ucontent)
+        self.assertIn(u"jeyzth@gmail.com", ucontent)
+        self.assertIn(u"jeyzth@khavr.com", ucontent)
+        self.assertNotIn(u"hodzha", ucontent)
+        self.assertNotIn(u"nasredin", ucontent)
