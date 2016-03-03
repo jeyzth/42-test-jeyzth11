@@ -1,0 +1,19 @@
+[
+    {"pk": 1, "model": "auth.user", "fields": {"username": "admin", "first_name": "", "last_name": "", "is_active": true, "is_superuser": true, "is_staff": true, "last_login": "2016-03-01T18:16:44.628Z", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$kdIi0yOBhhNi$DR07x5+mRMFv4lgq4IUTGAmLoKFh01gn+keNlzFZZTw=", "email": "admin@example.com", "date_joined": "2016-03-01T18:16:44.628Z"}}
+,
+{
+    "model": "hello.Applicant",
+    "pk": 1,
+    "fields": {
+        "name":"Євген",
+            "surname":"Анонімов",
+	    "dateofbird":"1973-03-09",
+            "bio":"Працюю у сфері телекомунікацій.\nВикористовую мови програмування:\nС & Shell для написання 'серверних' програм під Linux (x86,armv7)\n Delphi для написання 'кліентських' программ під Win32\nPHP + JavaScript для написання 'тонких кліентів' під WEB (LAMP)\nJava вчив колись, але вже не пам'ятаю і не використовую.\nPython вчу зараз, в процесі\n\nЦікавить робота в аутсорсінг фірмі, бажано розробником на Python\nу сфері WEB.",
+	    "email":"jeyzth@gmail.com",
+	    "jabber":"jeyzth@khavr.com",
+	    "skype":"jeyzth",
+	    "others":"т. +7(717)123456\nм. +7(707)1234567\nм. +38(050)1234567"
+        }
+    
+    }
+]

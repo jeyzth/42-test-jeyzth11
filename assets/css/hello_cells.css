@@ -1,0 +1,63 @@
+      body {
+          margin: 0px;
+          padding: 0px;
+          background-image: url(/static/img/cell10x10.gif);
+          background-position: top center;
+          background-repeat: repeat;
+      }
+
+      #workspace {
+          width: 100% ;
+          margin-top: 20px;
+          margin-left: 30px;
+          margin-right: 30px;
+          overflow: hidden;
+      }
+      #footer {
+          width: 100% ;
+          margin: 29px;
+          overflow: hidden;
+      }
+
+      #lcolumn {
+          float: left;
+          width: 365px;
+      } 
+
+      #rcolumn {
+          margin-left: 365px;
+          width: 300px;
+          overflow: hidden;
+      }
+
+      #multiline {
+          color: black;
+          margin-top: 25px;
+          margin-left: 5px;
+          margin-right: 5px;
+          padding: 1px; 
+      }
+
+      #sfields {
+          color: black;
+          margin: 0px;
+          padding: 0px; 
+      }
+
+
+      ul {
+         margin: 0px;
+         padding: 0px;
+         list-style: none;
+      }
+
+      li {
+          margin: 0px 0px 10px 0px;
+          padding: 0px; 
+      }
+
+      h3 {
+          margin: 5px 0px 5px 0px;
+          padding: 0px; 
+
+      }

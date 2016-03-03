@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    try:
+        return render(request, 'hello/index.html', None)
+    except:
+        return render(request, 'hello/emptytable.html', None)

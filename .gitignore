@@ -15,3 +15,6 @@ media
 static
 *.dat
 .env
+*.old
+*.bak
+.git_ignore
