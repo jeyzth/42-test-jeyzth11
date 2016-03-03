@@ -9,23 +9,14 @@
 
              <div id="workspace">
                 <h3> 42 Coffee Cups Test Assignment </h3>
+                {% if applicant %}
                 <div id="lcolumn">
                   <ul>
-                      <li> <span id="sfields">Євген</span> </li>
-                      <li> <span id="sfields">Анонімов</span> </li>
-                      <li> <span id="sfields">March 9, 1973</span> </li>
+                      <li> <span id="sfields">{{ applicant.name }} </span> </li>
+                      <li> <span id="sfields">{{ applicant.surname }} </span> </li>
+                      <li> <span id="sfields">{{ applicant.dateofbird }} </span> </li>
                       <li> 
-                          <div id="multiline">Bio:<br>Bio:<br>Працюю у сфері
-                          телекомунікацій.<br>Використовую мови
-                          програмування:<br>С &amp; Shell для написання
-                          'серверних' програм під Linux (x86,armv7)<br>
-                          Delphi для написання 'кліентських' программ під
-                          Win32<br>PHP + JavaScript для написання 'тонких
-                          кліентів' під WEB (LAMP)<br>Java вчив колись, але
-                          вже не пам'ятаю і не використовую.<br>Python вчу
-                          зараз, в процесі<br><br>Цікавить робота в
-                          аутсорсінг фірмі, бажано розробником на
-                          Python<br>у сфері WEB.</div>
+                          <div id="multiline">Bio:<br>{{ applicant.bio|linebreaksbr }}</div>
                       </li>
                    </ul>
                 </div>
@@ -33,17 +24,18 @@
                 <div id="rcolumn">
                    <ul>
                        <li>Contacts</li>
-                       <li>Email:<span id="sfields">jeyzth@gmail.com</span> </li>
-                       <li>Jabber: <span id="sfields">jeyzth@khavr.com</span> </li>
-                       <li>Skype: <span id="sfields">jeyzth</span></li>
+                       <li>Email:<span id="sfields">  {{ applicant.email }} </span> </li>
+                       <li>Jabber: <span id="sfields">{{ applicant.jabber }} </span> </li>
+                       <li>Skype: <span id="sfields"> {{ applicant.skype }}</span> </li>
                        <li> 
-                           <div id="multiline">Other contacts:<br>Other
-                           contacts:<br>т. +7(717)123456<br>м.
-                           +7(707)1234567<br>м. +38(050)1234567</div>
+                           <div id="multiline">Other contacts:<br>{{ applicant.others|linebreaksbr }} </div>
                        </li>
                    </ul>
                  </div>
                  
+                 {% else %}
+                 <h3> Не знайдено жодного запису! </h3>
+                 {% endif %}
               </div>
               
 
