@@ -2,15 +2,9 @@
 import sys
 from django.test import TestCase
 from django.test.client import Client
-
+from django.core.urlresolvers import reverse
 
 from hello.models import Applicant
-
-
-class SomeTests(TestCase):
-    def test_math(self):
-        "put docstrings in your tests"
-        assert(2 + 2 == 4)
 
 
 class AppicantTest(TestCase):
@@ -19,7 +13,7 @@ class AppicantTest(TestCase):
              on main page
         """
         c = Client()
-        responce = c.get('http://localhost:8080')
+        responce = c.get(reverse('hello:main_page'))
         s = responce.content
         self.assertIn("42 Coffee Cups Test Assignment", s)
         self.assertIn("Contacts", s)
@@ -56,7 +50,7 @@ class AppicantTest(TestCase):
         new_rec1.save()
         new_rec3.save()
         c = Client()
-        response = c.get('http://localhost:8080')
+        response = c.get(reverse('hello:main_page'))
         ucontent = response.content.decode('utf8')
         self.assertNotIn(u"Алдар", ucontent)
         self.assertNotIn(u"Косе", ucontent)
@@ -72,7 +66,7 @@ class AppicantTest(TestCase):
         del_rec = Applicant.objects.all()
         del_rec.delete()
         c = Client()
-        response = c.get('http://localhost:8080')
+        response = c.get(reverse('hello:main_page'))
         ucontent = response.content.decode('utf8')
         assert(ucontent.find(u"не знайдено жодного запису") > 0)
 
@@ -80,7 +74,7 @@ class AppicantTest(TestCase):
         """ This test check correct show unicode data
         """
         c = Client()
-        response = c.get('http://localhost:8080')
+        response = c.get(reverse('hello:main_page'))
         ucontent = response.content.decode('utf8')
         self.assertIn(u"9 березня 1973 р.", ucontent)
         self.assertIn(u"Євген", ucontent)

@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 
 from hello.models import Applicant
 
 
-def index(request):
+def main_page(request):
     try:
         applicant = Applicant.objects.get(email='jeyzth@gmail.com')
         context = {'applicant': applicant}
