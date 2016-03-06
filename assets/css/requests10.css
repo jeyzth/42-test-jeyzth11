@@ -1,0 +1,29 @@
+
+      #workspace {
+          width: 960px ;
+          margin-right: auto;
+          margin-left: auto;
+          padding-left: 30 px;
+          overflow: hidden;
+      }
+      
+      table{
+      width: 960px ;
+          margin-right: auto;
+          margin-left: auto;
+          padding-left: 30 px;
+          overflow: hidden;
+          border: 2px solid black;
+      }
+
+      th{
+      margin: 3px;
+      padding: 3px; 
+      border: 2px solid black;
+      }
+      td {
+      margin: 1px;
+      padding-left: 5px; 
+      padding-right: 10px;
+      border: 1px solid black;
+      }
