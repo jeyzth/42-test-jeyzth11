@@ -12,5 +12,6 @@ urlpatterns = patterns(
     # url(r'^css/$', include('hello.urls')),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include(hello_urls, namespace='hello'))
+    url(r'^', include(hello_urls, namespace='hello')),
+    url(r'^hello/', include('hello.urls')),
 )

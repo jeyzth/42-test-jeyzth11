@@ -18,3 +18,7 @@ def main_page(request):
     except:
         logger.info('Empty data in model')
         return render(request, 'hello/emptytable.html', None)
+
+
+def requests10(request):
+    return render(request, 'hello/requests10.html', None)
