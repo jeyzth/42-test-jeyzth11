@@ -11,7 +11,7 @@
         {% block extra_head %}{% endblock extra_head %}
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
-         
+    <div id="workspace">         
               <table id="tbl">
               <tr> 
                   <th>Id</th>
@@ -89,6 +89,7 @@
               
               
               </table>
+    </div>              
         {% block content %}{% endblock content %}
     </body>
 </html>
