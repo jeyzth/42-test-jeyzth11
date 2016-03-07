@@ -66,8 +66,7 @@ class AppicantTest(TestCase):
         del_rec.delete()
         c = Client()
         response = c.get(reverse('hello:main_page'))
-        ucontent = response.content.decode('utf8')
-        assert(ucontent.find(u"не знайдено жодного запису") > 0)
+        self.assertContains(response, u"не знайдено жодного запису")
 
     def test_correct_view_unicode(self):
         """ This test check correct show unicode data
