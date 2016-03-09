@@ -101,6 +101,6 @@ class AppicantTest(TestCase):
         ucontent = response.content.decode('utf8')
         assert(ucontent.find(u"tables") < ucontent.find(u"tbl"))
         for i in range(1, 4):
-            assert(ucontent.find(u"td-%d" % i) < ucontent.find(
-                                                        u"td-%d" % (i+1)))
+            assert(ucontent.find(u"-%d" % i) < ucontent.find(
+                                                        u"-%d" % (i+1)))
         assert(ucontent.find(u"</tbody>") < ucontent.find(u"</table>"))

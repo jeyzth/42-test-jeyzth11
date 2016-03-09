@@ -9,7 +9,7 @@
 <div class= "container">
 
 
-{% for rqst in latest_requests_list %}    
+{% for rqst in last_requests_list %}    
 {% if forloop.first %}
   <table class="table" id="tbl">
   <tbody>
@@ -20,8 +20,8 @@
           <th>Request</th>
       </tr>
 {% endif %}
-      <tr id="tr1">
-         <td id="td{{ forloop.counter }}-1">{{ rqst.pk }}</td> 
+      <tr id="tr-"{{ forloop.counter }}>
+         <td id="td{{ forloop.counter }}-1">{{ rqst.id}}</td> 
          <td id="td{{ forloop.counter }}-2">
          {{ rqst.query_dt|date:"d.m.Y H:i:s" }}</td> 
          <td id="td{{ forloop.counter }}-3">{{ rqst.remote_ip }}</td>
