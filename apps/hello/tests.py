@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
+from os import fork
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 
+
 from hello.models import Applicant
+
+
+def start_fone_requests():
+    pid = fork()
+    if (pid == 0):
+        return 0
+    c = TestCase.Client()
+    for i in range(0, 10):
+        c.get(reverse('hello:main_page'))
 
 
 class AppicantTest(TestCase):
@@ -80,3 +91,16 @@ class AppicantTest(TestCase):
         self.assertIn(u"Анонімов", ucontent)
         self.assertIn(u"Працюю у сфері телекомунікацій", ucontent)
         self.assertIn(u"бажано розробником на Python", ucontent)
+
+    def test_view__requests10(self):
+        """  This test checks how view hard-coded data for the template
+                  on requests10 page
+        """
+        c = Client()
+        response = c.get(reverse('hello:requests10'))
+        ucontent = response.content.decode('utf8')
+        assert(ucontent.find(u"tables") < ucontent.find(u"tbl"))
+        for i in range(1, 4):
+            assert(ucontent.find(u"td-%d" % i) < ucontent.find(
+                                                        u"td-%d" % (i+1)))
+        assert(ucontent.find(u"</tbody>") < ucontent.find(u"</table>"))
