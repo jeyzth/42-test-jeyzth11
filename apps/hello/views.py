@@ -5,7 +5,7 @@ import time
 import django.utils.timezone as tz
 from django.shortcuts import render
 
-from hello.models import Applicant
+from hello.models import Applicant, Requests
 
 logger = logging.getLogger(__name__)
 
@@ -23,14 +23,11 @@ def main_page(request):
 
 
 def requests10(request):
-    last_requests_list = list()
-    for i in range(0, 10):
-        print i
-        last_requests_list.append({'id': i, 'query_dt': tz.now(),
-                                   'remote_ip': '192.168.88.1',
-                                   'query_string': 'http://192.168.88.129:8080'
-                                   })
-        time.sleep(0.1)
-    max_id = int(last_requests_list[9]['id'])
-    context = {'last_requests_list': last_requests_list, 'max_id': max_id}
+    last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+    try:
+        max_id = last_requests_list[0].id
+    except:
+        context = {'latest_requests_list': None, 'max_id': None}
+    else:    
+        context = {'latest_requests_list': last_requests_list, 'max_id': max_id}
     return render(request, 'hello/requests10.html', context)
