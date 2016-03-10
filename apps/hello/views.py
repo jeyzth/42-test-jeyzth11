@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import logging
-import time
-import django.utils.timezone as tz
 from django.shortcuts import render
 
 from hello.models import Applicant, Requests
@@ -27,7 +25,7 @@ def requests10(request):
     try:
         max_id = last_requests_list[0].id
     except:
-        context = {'latest_requests_list': None, 'max_id': None}
-    else:    
-        context = {'latest_requests_list': last_requests_list, 'max_id': max_id}
+        context = {'last_requests_list': None, 'max_id': None}
+    else:
+        context = {'last_requests_list': last_requests_list, 'max_id': max_id}
     return render(request, 'hello/requests10.html', context)

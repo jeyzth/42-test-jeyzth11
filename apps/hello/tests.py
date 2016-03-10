@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from os import fork
+
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 
-from hello.models import Applicant
+from hello.models import Applicant, Requests
 
 
 def start_fone_requests():
@@ -15,6 +16,15 @@ def start_fone_requests():
     c = TestCase.Client()
     for i in range(0, 10):
         c.get(reverse('hello:main_page'))
+
+
+def fill_requests_model():
+    for i in range(0, 10):
+        r = Requests(
+                remote_ip=u"192.168.88.117",
+                query_string=u"http://192.168.88.129:8080"
+            )
+        r.save()
 
 
 class AppicantTest(TestCase):
@@ -77,8 +87,7 @@ class AppicantTest(TestCase):
         del_rec.delete()
         c = Client()
         response = c.get(reverse('hello:main_page'))
-        ucontent = response.content.decode('utf8')
-        assert(ucontent.find(u"не знайдено жодного запису") > 0)
+        self.assertContains(response, u"не знайдено жодного запису")
 
     def test_correct_view_unicode(self):
         """ This test check correct show unicode data
@@ -93,13 +102,17 @@ class AppicantTest(TestCase):
         self.assertIn(u"бажано розробником на Python", ucontent)
 
     def test_view__requests10(self):
-        """  This test checks how view hard-coded data for the template
+        """  This test checks how view data for the template
                   on requests10 page
         """
         c = Client()
         response = c.get(reverse('hello:requests10'))
         ucontent = response.content.decode('utf8')
-        assert(ucontent.find(u"tables") < ucontent.find(u"tbl"))
+        if(ucontent.find(u"table") == -1):
+            fill_requests_model()
+            response = c.get(reverse('hello:requests10'))
+            ucontent = response.content.decode('utf8')
+        assert(ucontent.find(u"table") < ucontent.find(u"tbl"))
         for i in range(1, 4):
             assert(ucontent.find(u"-%d" % i) < ucontent.find(
                                                         u"-%d" % (i+1)))
