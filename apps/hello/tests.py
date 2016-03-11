@@ -117,3 +117,22 @@ class AppicantTest(TestCase):
             assert(ucontent.find(u"-%d" % i) < ucontent.find(
                                                         u"-%d" % (i+1)))
         assert(ucontent.find(u"</tbody>") < ucontent.find(u"</table>"))
+
+    def test_middleware(self):
+        """  This test checks:
+             How middleware work for add requests.
+             Correct work Javascript calc noview request.
+        """ 
+        # get begin_max_id
+        last_requests_list = Requests.objects.order_by('id').reverse()[:0]
+        try:
+            begin_max_id = last_requests_list[0].id
+        except:
+            begin_max_id = -1
+        # make 10 requestiv
+        c = Client()
+        for i in range(10):
+           c.get(reverse('hello:main_page'))
+        last_requests_list = Requests.objects.order_by('id').reverse()[:0]
+        current_max_id = last_requests_list[0].id
+        assertGreaterEqual(current_max_id - begin_max_id, 10)
