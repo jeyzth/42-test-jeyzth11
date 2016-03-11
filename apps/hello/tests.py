@@ -13,9 +13,10 @@ def start_fone_requests():
     pid = fork()
     if (pid == 0):
         return 0
-    c = TestCase.Client()
+    c = Client()
     for i in range(0, 10):
         c.get(reverse('hello:main_page'))
+    exit()
 
 
 def fill_requests_model():
@@ -121,18 +122,18 @@ class AppicantTest(TestCase):
     def test_middleware(self):
         """  This test checks:
              How middleware work for add requests.
-             Correct work Javascript calc noview request.
-        """ 
+        """
         # get begin_max_id
-        last_requests_list = Requests.objects.order_by('id').reverse()[:0]
+        last_requests_list = Requests.objects.order_by('id').reverse()[:10]
         try:
             begin_max_id = last_requests_list[0].id
         except:
             begin_max_id = -1
         # make 10 requestiv
         c = Client()
-        for i in range(10):
-           c.get(reverse('hello:main_page'))
-        last_requests_list = Requests.objects.order_by('id').reverse()[:0]
+        for i in range(0, 10):
+            c.get(reverse('hello:main_page'))
+        last_requests_list = Requests.objects.order_by('id').reverse()[:10]
         current_max_id = last_requests_list[0].id
-        assertGreaterEqual(current_max_id - begin_max_id, 10)
+        print "%d < %d" % (begin_max_id, current_max_id)
+        self.assertGreaterEqual(current_max_id - begin_max_id, 10)
