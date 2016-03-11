@@ -101,7 +101,7 @@ class AppicantTest(TestCase):
         self.assertIn(u"Працюю у сфері телекомунікацій", ucontent)
         self.assertIn(u"бажано розробником на Python", ucontent)
 
-    def test_view__requests10(self):
+    def test_view_requests10(self):
         """  This test checks how view data for the template
                   on requests10 page
         """
