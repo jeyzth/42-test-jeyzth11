@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
 from os import fork
+from time import sleep
 
 from django.test import TestCase
 from django.test.client import Client
@@ -9,14 +11,21 @@ from django.core.urlresolvers import reverse
 from hello.models import Applicant, Requests
 
 
-def start_fone_requests():
+def make_fone_10_requests():
     pid = fork()
-    if (pid == 0):
-        return 0
+    if (pid != 0):
+        return pid
     c = Client()
     for i in range(0, 10):
         c.get(reverse('hello:main_page'))
-    exit()
+    sys.exit(0)
+
+
+def make_10_requests():
+    c = Client()
+    for i in range(0, 10):
+        c.get(reverse('hello:main_page'))
+
 
 
 def fill_requests_model():
@@ -137,3 +146,19 @@ class AppicantTest(TestCase):
         current_max_id = last_requests_list[0].id
         print "%d < %d" % (begin_max_id, current_max_id)
         self.assertGreaterEqual(current_max_id - begin_max_id, 10)
+
+    def test_chk_new_rec(self):
+        """ This test check backand for asynchron update
+            requests10 
+        """
+        c = Client()
+        #run background ten requests to main page
+        make_10_requests()
+        print "after make_10_requests()"
+        #send 
+        cur_max_id=0
+        new_max_id=0
+        response = c.post(reverse('hello:chknewreq', {'cur_max_id=0'}))
+        response_data = json.loads(response)
+        new_max_id = int(response_data['new_max_id'])
+        self.assertGreater(new_max_id,10)

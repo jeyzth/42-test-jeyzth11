@@ -29,3 +29,13 @@ def requests10(request):
     else:
         context = {'last_requests_list': last_requests_list, 'max_id': max_id}
     return render(request, 'hello/requests10.html', context)
+
+def chknewreq(request):
+    last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+    try:
+        max_id = last_requests_list[0].id
+    except:
+        context = {'last_requests_list': None, 'max_id': None}
+    else:
+        context = {'last_requests_list': last_requests_list, 'max_id': max_id}
+    return render(request, 'hello/requests10.html', context)
