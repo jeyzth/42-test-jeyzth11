@@ -6,6 +6,32 @@
 {% endblock extra_head %}
             
 {% block content %}
+
+{% if last_requests_list %}
+<script  
+  src="{% static 'js/jquery.min.1.11.0.js' %}">
+</script>
+
+   <script type="text/javascript">
+      
+      var i = 0;
+      var cur_max_id = {{ max_id }} ;
+      var load_max_id = cur_max_id;
+      var is_focused;
+      
+      window.onfocus = function(){
+          document.title="Requests log";
+          load_max_id = cur_max_id;
+          is_focused = true;
+      }
+      
+      window.onblur = function(){
+          is_focused = false;
+      }
+   </script>
+{% endif %}                                                                                                                                                                   
+
+
 <div class= "container">
 
 
@@ -20,10 +46,13 @@
           <th>Request</th>
       </tr>
 {% endif %}
-      <tr id="tr-"{{ forloop.counter }}>
+      <tr id="tr-{{ forloop.counter }}">
          <td id="td{{ forloop.counter }}-1">{{ rqst.id}}</td> 
          <td id="td{{ forloop.counter }}-2">
-         {{ rqst.query_dt|date:"d.m.Y H:i:s" }}</td> 
+         <nobr>
+         {{ rqst.query_dt|date:"d.m.Y H:i:s" }}
+         </nobr>
+         </td> 
          <td id="td{{ forloop.counter }}-3">{{ rqst.remote_ip }}</td>
          <td id="td{{ forloop.counter }}-4">{{ rqst.query_string }}</td> 
      </tr>
@@ -31,6 +60,37 @@
 {% if forloop.last%}         
   </tbody>
   </table>
+  
+   <script type="text/javascript">
+
+        setInterval(function()  {
+           var  data_in={"cur_max_id":window.cur_max_id};
+           $.getJSON("/hello/chknewreq", data_in,  function(data)  {
+               var z = data["new_max_id"] - window.cur_max_id;
+               var n = data["new_max_id"] - window.load_max_id;
+               if (z > 0)  {
+                   if (! is_focused )
+                       document.title="(" + n +") Requests log";
+                   var  i = 0;
+                   var cnt_req = {{ forloop.counter }} ;
+                   for(i=1; i<= cnt_req; i++) {
+                       for(j=1; j<5; j++){
+                           key=i+"-"+j
+                           ikey="td"+key
+                           document.getElementById(ikey).innerHTML = data[key];
+                       }
+
+                   }
+               }
+                    window.cur_max_id = data["new_max_id"];   
+                    if (is_focused) 
+                       window.load_max_id = data["new_max_id"] ;     
+               
+          });
+      }, 1000);
+    </script>
+    
+  
 {% endif %}  
 {% empty %}
   <h4> Не знайдено жодного запису! </h4>

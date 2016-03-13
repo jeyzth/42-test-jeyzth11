@@ -35,17 +35,19 @@ def requests10(request):
 
 def chknewreq(request):
     logger.info(' -----------    chknewreq --------')
-    in_data = request.POST.dict() 
+    in_data = request.GET.dict() 
     cur_max_id = int(in_data['cur_max_id'])
     last_requests_list = Requests.objects.order_by('id').reverse()[:10]
     data = {}
     try:
         new_max_id = last_requests_list[0].id
+        print "cur=%d new=%d" % (cur_max_id, new_max_id)
     except Exception as e:
         logger.debug('except chknewreq %s\n' % e)
+        print "exception"
         return HttpResponse("no data", content_type="application/json")
+    data['new_max_id'] = new_max_id    
     if (new_max_id > cur_max_id):
-        data['new_max_id'] = new_max_id
         i = 0
         for req in last_requests_list:
             i = 1 + i
