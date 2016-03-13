@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
+import json
 from os import fork
 from time import sleep
-
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
@@ -25,7 +25,7 @@ def make_10_requests():
     c = Client()
     for i in range(0, 10):
         c.get(reverse('hello:main_page'))
-
+    return "OK"
 
 
 def fill_requests_model():
@@ -132,13 +132,11 @@ class AppicantTest(TestCase):
         """  This test checks:
              How middleware work for add requests.
         """
-        # get begin_max_id
         last_requests_list = Requests.objects.order_by('id').reverse()[:10]
         try:
             begin_max_id = last_requests_list[0].id
         except:
             begin_max_id = -1
-        # make 10 requestiv
         c = Client()
         for i in range(0, 10):
             c.get(reverse('hello:main_page'))
@@ -147,18 +145,21 @@ class AppicantTest(TestCase):
         print "%d < %d" % (begin_max_id, current_max_id)
         self.assertGreaterEqual(current_max_id - begin_max_id, 10)
 
-    def test_chk_new_rec(self):
+    def test_chk_new_requests(self):
         """ This test check backand for asynchron update
-            requests10 
+            requests10
         """
         c = Client()
-        #run background ten requests to main page
         make_10_requests()
-        print "after make_10_requests()"
-        #send 
-        cur_max_id=0
-        new_max_id=0
-        response = c.post(reverse('hello:chknewreq', {'cur_max_id=0'}))
-        response_data = json.loads(response)
-        new_max_id = int(response_data['new_max_id'])
-        self.assertGreater(new_max_id,10)
+        sleep(2)
+        cur_max_id = 5
+        response = c.post(reverse('hello:chknewreq'), {'cur_max_id':
+                          cur_max_id})
+        cx = json.loads(response.content)
+        new_max_id = cx['new_max_id']
+        print new_max_id
+        for i in range(1, 11):
+            print " %s %s %s %s %s \n" % (cx["%d-1" % i], cx["%d-2" % i],
+                                          cx["%d-3" % i], cx["%d-4" % i],
+                                          cx["%d-5" % i])
+        self.assertGreater(new_max_id, 0)

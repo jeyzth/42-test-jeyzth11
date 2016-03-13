@@ -6,5 +6,5 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.main_page, name='main_page'),
     url(r'^requests10$', views.requests10, name='requests10'),
-    url(r'^chknewreq$', views.chknewreq),
+    url(r'^chknewreq$', views.chknewreq, name='chknewreq'),
 )

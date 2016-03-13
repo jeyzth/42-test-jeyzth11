@@ -32,7 +32,7 @@ class SaveRequest(object):
             i = 0
 
         ip_s = request.META["REMOTE_ADDR"]
-        logger.debug('middleware ' + request.META["REMOTE_ADDR"])
+        logger.debug('-->middleware URL='+z+'|' + request.META["REMOTE_ADDR"])
         new_req = Requests(
             remote_ip=ip_s,
             query_string="URL="+z+"Data="+s
