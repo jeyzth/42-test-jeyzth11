@@ -4,13 +4,15 @@
 {% block extra_head %}
         
 {% endblock extra_head %}
+
+<script  
+  src="{% static 'js/jquery.min.1.11.0.js' %}">
+</script>
+
             
 {% block content %}
 
 {% if last_requests_list %}
-<script  
-  src="{% static 'js/jquery.min.1.11.0.js' %}">
-</script>
 
    <script type="text/javascript">
       
@@ -57,7 +59,7 @@
          <td id="td{{ forloop.counter }}-4">{{ rqst.query_string }}</td> 
      </tr>
 
-{% if forloop.last%}         
+{% if forloop.last %}         
   </tbody>
   </table>
   
