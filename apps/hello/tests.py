@@ -33,7 +33,7 @@ class AppicantTest(TestCase):
             bio="Хитрий і проворний",
             email=u"aldar@satu.kz",
             jabber=u"aldar@xmpp.kz",
-            skype=u"aldar.kose",
+            skype=u"Aldar.kose",
             others="Алма"
         )
         new_rec3 = Applicant(
@@ -42,7 +42,7 @@ class AppicantTest(TestCase):
             dateofbird=u"1963-07-04",
             bio="Дуже язикатий",
             email=u"hodzha@satu.uz",
-            jabber=u"hodzha@xmpp.uz",
+            jabber=u"hodzha@xmpp.jp",
             skype=u"hodzha.nasredin",
             others="Аста"
         )
