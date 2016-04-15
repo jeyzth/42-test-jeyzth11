@@ -34,7 +34,7 @@ class AppicantTest(TestCase):
             email=u"aldar@satu.kz",
             jabber=u"aldar@xmpp.kz",
             skype=u"aldar.kose",
-            others="Хтозна"
+            others="Алма"
         )
         new_rec3 = Applicant(
             name=u"Ходжа",
@@ -44,7 +44,7 @@ class AppicantTest(TestCase):
             email=u"hodzha@satu.uz",
             jabber=u"hodzha@xmpp.uz",
             skype=u"hodzha.nasredin",
-            others="Дезна"
+            others="Аста"
         )
         new_rec1.save()
         new_rec3.save()
