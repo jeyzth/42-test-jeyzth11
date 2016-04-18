@@ -7,12 +7,14 @@ from hello.models import Applicant
 
 
 class AppicantTest(TestCase):
+    def setUp(self):
+        self.c = Client()
+
     def test_get_mainpage(self):
         """  This test checks how view hard-coded data for the template
              on main page
         """
-        c = Client()
-        responce = c.get(reverse('hello:main_page'))
+        responce = self.c.get(reverse('hello:main_page'))
         s = responce.content
         self.assertIn("42 Coffee Cups Test Assignment", s)
         self.assertIn("Contacts", s)
@@ -48,8 +50,7 @@ class AppicantTest(TestCase):
         )
         new_rec1.save()
         new_rec3.save()
-        c = Client()
-        response = c.get(reverse('hello:main_page'))
+        response = self.c.get(reverse('hello:main_page'))
         ucontent = response.content.decode('utf8')
         self.assertNotIn(u"Алдар", ucontent)
         self.assertNotIn(u"Косе", ucontent)
@@ -64,15 +65,13 @@ class AppicantTest(TestCase):
         """
         del_rec = Applicant.objects.all()
         del_rec.delete()
-        c = Client()
-        response = c.get(reverse('hello:main_page'))
+        response = self.c.get(reverse('hello:main_page'))
         self.assertContains(response, u"не знайдено жодного запису")
 
     def test_correct_view_unicode(self):
         """ This test check correct show unicode data
         """
-        c = Client()
-        response = c.get(reverse('hello:main_page'))
+        response = self.c.get(reverse('hello:main_page'))
         ucontent = response.content.decode('utf8')
         self.assertIn(u"9 березня 1973 р.", ucontent)
         self.assertIn(u"Євген", ucontent)
