@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-import logging
 from django.db import models
-
-logger = logging.getLogger(__name__)
-
 
 class Applicant(models.Model):
     name = models.CharField(max_length=40, blank=False)
