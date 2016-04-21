@@ -66,6 +66,7 @@ class AppicantTest(TestCase):
         del_rec = Applicant.objects.all()
         del_rec.delete()
         response = self.c.get(reverse('hello:main_page'))
+        print response.content.decode('utf8')
         self.assertContains(response, u"не знайдено жодного запису")
 
     def test_correct_view_unicode(self):
