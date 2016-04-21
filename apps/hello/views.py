@@ -29,6 +29,7 @@ def requests10(request):
     return render(request, 'hello/requests10.html', context)
 
 def chknewreq(request):
+    print ' -----------    chknewreq --------'
     logger.info(' -----------    chknewreq --------')
     in_data = request.GET.dict() 
     print in_data
