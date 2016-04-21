@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def main_page(request):
     try:
-        applicant = Applicant.objects.get(email='jeyzth@gmail.com')
+        applicant = Applicant.objects.first()
         logger.debug(applicant)
         context = {'applicant': applicant}
         logger.info('Get main_page')
