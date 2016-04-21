@@ -7,13 +7,14 @@
       }
 
       #workspace {
-          width: 100% ;
+/*          width: 800px; */
           margin-top: 20px;
           margin-left: 30px;
           margin-right: 30px;
-          overflow: hidden;
+/*          overflow: hidden; */
       }
       #footer {
+          border-top: 2px solid black;
           width: 100% ;
           margin: 29px;
           overflow: hidden;

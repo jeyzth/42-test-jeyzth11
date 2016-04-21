@@ -1,9 +1,40 @@
 # -*- coding: utf-8 -*-
+import sys
+import json
+from os import fork
+from time import sleep
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 
-from hello.models import Applicant
+
+from hello.models import Applicant, Requests
+
+
+def make_fone_10_requests():
+    pid = fork()
+    if (pid != 0):
+        return pid
+    c = Client()
+    for i in range(0, 10):
+        c.get(reverse('hello:main_page'))
+    sys.exit(0)
+
+
+def make_10_requests():
+    c = Client()
+    for i in range(0, 10):
+        c.get(reverse('hello:main_page'))
+        sleep(0.1)
+
+
+def fill_requests_model():
+    for i in range(0, 10):
+        r = Requests(
+                remote_ip=u"192.168.88.117",
+                query_string=u"http://192.168.88.129:8080"
+            )
+        r.save()
 
 
 class AppicantTest(TestCase):
@@ -78,3 +109,53 @@ class AppicantTest(TestCase):
         self.assertIn(u"Анонімов", ucontent)
         self.assertIn(u"Працюю у сфері телекомунікацій", ucontent)
         self.assertIn(u"бажано розробником на Python", ucontent)
+
+    def test_view_requests10(self):
+        """  This test checks how view data for the template
+                  on requests10 page
+        """
+        return "OK"
+        fill_requests_model()
+        response = self.c.get(reverse('hello:requests10'))
+        return "OK"
+        ucontent = response.content.decode('utf8')
+        print ucontent
+        if(ucontent.find(u"table") == -1):
+            fill_requests_model()
+            response = self.c.get(reverse('hello:requests10'))
+            ucontent = response.content.decode('utf8')
+        assert(ucontent.find(u"table") < ucontent.find(u"tbl"))
+        for i in range(1, 4):
+            assert(ucontent.find(u"-%d" % i) < ucontent.find(
+                                                        u"-%d" % (i+1)))
+        assert(ucontent.find(u"</tbody>") < ucontent.find(u"</table>"))
+
+    def test_middleware(self):
+        """  This test checks:
+             How middleware work for add requests.
+        """
+        last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+        try:
+            begin_max_id = last_requests_list[0].id
+        except:
+            begin_max_id = -1
+        for i in range(0, 10):
+            self.c.get(reverse('hello:main_page'))
+        last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+        current_max_id = last_requests_list[0].id
+        print "%d < %d" % (begin_max_id, current_max_id)
+        self.assertGreaterEqual(current_max_id - begin_max_id, 10)
+
+    def test_chk_new_requests(self):
+        """ This test check backand for asynchron update
+            requests10
+        """
+        make_10_requests()
+        sleep(2)
+        cur_max_id = 5
+        response = self.c.get(reverse('hello:chknewreq'),
+                              {'cur_max_id': cur_max_id})
+        cx = json.loads(response.content)
+        new_max_id = cx['new_max_id']
+        print new_max_id
+        self.assertGreater(new_max_id, 0)

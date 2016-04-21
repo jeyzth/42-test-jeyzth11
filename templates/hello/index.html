@@ -1,43 +1,68 @@
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
 
-    {% block extra_head %}
-         <link rel="stylesheet" href="/static/css/hello.css" media="screen,projection"/>
-    {% endblock extra_head %}
+{% block extra_head %}
+    
+{% endblock extra_head %}
         
-    {% block content %}
+ {% block content %}
+ <div class= "container">
+      <div class="row">
+          <div class="col-lg-12"><h3> 42 Coffee Cups Test Assignment </h3> </div>
+      </div>
+               
+                <div class="row">
+                     {% if applicant %}
+                     <div class="col-lg-5">
+                          <ul class="list-unstyled">
+                              <li> {{ applicant.name }} </li>
+                              <li> {{ applicant.surname }} </li>
+                              <li> {{ applicant.dateofbird }} </li>
+                              <li>Bio:</li>
+                              <li> 
+                                {{ applicant.bio|linebreaksbr }}
+                              </li>
+                          </ul>
+                     </div>
 
-             <div id="workspace">
-                <h3> 42 Coffee Cups Test Assignment </h3>
-                {% if applicant %}
-                <div id="lcolumn">
-                  <ul>
-                      <li> <span id="sfields">{{ applicant.name }} </span> </li>
-                      <li> <span id="sfields">{{ applicant.surname }} </span> </li>
-                      <li> <span id="sfields">{{ applicant.dateofbird }} </span> </li>
-                      <li> 
-                          <div id="multiline">Bio:<br>{{ applicant.bio|linebreaksbr }}</div>
-                      </li>
-                   </ul>
-                </div>
-
-                <div id="rcolumn">
-                   <ul>
-                       <li>Contacts</li>
-                       <li>Email: <span id="sfields">  {{ applicant.email }} </span> </li>
-                       <li>Jabber: <span id="sfields"> {{ applicant.jabber }} </span> </li>
-                       <li>Skype: <span id="sfields"> {{ applicant.skype }}</span> </li>
-                       <li> 
-                           <div id="multiline">Other contacts:<br>{{ applicant.others|linebreaksbr }} </div>
-                       </li>
-                   </ul>
-                 </div>
+                     <div class="col-lg-5">
+                          <ul class="list-unstyled">
+                          <li>Contacts </li>
+                          <li>
+                            Email:
+                             <span>{{ applicant.email }} </span> 
+                          </li>
+                          <li>
+                              Jabber:
+                              <span>{{ applicant.jabber }}</span>
+                          </li>
+                          <li>
+                               Skype:
+                               <span>{{ applicant.skype }}</span>
+                          </li>
+                          <li> 
+                              Other contacts:
+                          </li>
+                          <li>
+                               {{ applicant.others|linebreaksbr }}
+                          </li>
+                          </ul>
+                     </div>
                  
                  {% else %}
                  <h3> Нажаль не знайдено жодного запису в таблиці! </h3>
                  <p>Хтось видалив усі записи.</p>
                  {% endif %}
-              </div>
+                 </div>
               
-
+              <div class="row">
+                  <div class="col-lg-12">
+                     <div style=" border-top: 2px solid black;"> 
+                       <a href="/hello/requests10" 
+                        target="_blank">requests</a>
+                     </div>     
+                  </div>
+              </div>  
+      </div>  
     {% endblock content %}
+
