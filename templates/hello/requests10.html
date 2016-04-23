@@ -1,15 +1,11 @@
 {% extends "base.html" %}
     
-    
+{% load staticfiles %}    
 {% block extra_head %}
-        
+   <script src="{% static "js/jquery.min.1.11.0.js" %}" ></script>
 {% endblock extra_head %}
-{% load static %}
 
-<script  
- 
-  src="{% static "js/jquery.min.1.11.0.js" %}" >
-</script>
+
 
             
 {% block content %}
