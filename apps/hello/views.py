@@ -18,22 +18,22 @@ def main_page(request):
         logger.info('Get main_page')
         return render(request, 'hello/index.html', context)
 
-def requests10(request):
-    last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+def requests_page(request):
+    last_requests_list = Requests.objects.order_by('-id')[:10]
     try:
         max_id = int(last_requests_list[0].id)
     except:
         context = {'last_requests_list': None, 'max_id': None}
     else:
         context = {'last_requests_list': last_requests_list, 'max_id': max_id}
-    return render(request, 'hello/requests10.html', context)
+    return render(request, 'hello/requests_page.html', context)
 
 def chknewreq(request):
     logger.info(' -----------    chknewreq --------')
     in_data = request.GET.dict() 
     print in_data
     cur_max_id = int(in_data['cur_max_id'])
-    last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+    last_requests_list = Requests.objects.order_by('-id')[:10]
     data = {}
     try:
         new_max_id = int(last_requests_list[0].id)
@@ -66,3 +66,4 @@ def chknewreq(request):
             else:
                 data[key] = "O"
     return HttpResponse(json.dumps(data), content_type="application/json")  # flake8: noqa 
+

@@ -13,7 +13,7 @@
                
                 <div class="row">
                      {% if applicant %}
-                     <form action="/home/editor" method="post" >
+                     <form action="/home/editor_editor" method="post" > {% csrf_tohen  %}
                      <div class="col-lg-5">
                           <ul class="list-unstyled">
                               <li> 
@@ -31,29 +31,31 @@
                                  <label for="id_dateofbird">Date of Bird:</label>                                                                        
                                  {{ form.dateofbird }}
                               </li>
-                                                                                
+                              <li>
+                              Photo:
                               </li>
-                              <li>Bio:</li>
-                              <li> 
-                                {{ applicant.bio|linebreaksbr }}
+                              <li>
+                              <img src="/media/evgen.png" width="200" height="200" alt ="Photo not found.">
                               </li>
-                          </ul>
                      </div>
 
                      <div class="col-lg-5">
                           <ul class="list-unstyled">
                           <li>Contacts </li>
                           <li>
-                            Email:
-                             <span>{{ applicant.email }} </span> 
+                              {{ form.email.errors }}
+                              <label for="id_email">Email:</label>
+                              {{ form.email }} 
                           </li>
                           <li>
-                              Jabber:
-                              <span>{{ applicant.jabber }}</span>
+                              {{ form.jaber.errors }}
+                              <label for="id_jaber">Jaber:</label>
+                              {{ form.jaber }} 
                           </li>
                           <li>
-                               Skype:
-                               <span>{{ applicant.skype }}</span>
+                              {{ form.skype.errors }}
+                              <label for="id_email">Skype:</label>
+                              {{ form.skype }} 
                           </li>
                           <li> 
                               Other contacts:
@@ -61,6 +63,12 @@
                           <li>
                                {{ applicant.others|linebreaksbr }}
                           </li>
+                          <li>Bio:</li>
+                          <li> 
+                               {{ applicant.bio|linebreaksbr }}
+                          </li>
+                          </ul>
+
                           </ul>
                      </div>
                  
