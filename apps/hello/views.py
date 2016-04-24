@@ -20,12 +20,11 @@ def main_page(request):
 
 def requests_page(request):
     last_requests_list = Requests.objects.order_by('-id')[:10]
-    try:
+    if last_requests_list :
         max_id = int(last_requests_list[0].id)
-    except:
-        context = {'last_requests_list': None, 'max_id': None}
     else:
-        context = {'last_requests_list': last_requests_list, 'max_id': max_id}
+        max_id = None
+    context = {'last_requests_list': last_requests_list, 'max_id': max_id}
     return render(request, 'hello/requests_page.html', context)
 
 def chknewreq(request):
