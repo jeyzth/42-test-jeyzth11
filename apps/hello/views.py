@@ -18,15 +18,14 @@ def main_page(request):
         logger.info('Get main_page')
         return render(request, 'hello/index.html', context)
 
-def requests10(request):
-    last_requests_list = Requests.objects.order_by('id').reverse()[:10]
-    try:
+def requests_page(request):
+    last_requests_list = Requests.objects.order_by('-id')[:10]
+    if last_requests_list :
         max_id = int(last_requests_list[0].id)
-    except:
-        context = {'last_requests_list': None, 'max_id': None}
     else:
-        context = {'last_requests_list': last_requests_list, 'max_id': max_id}
-    return render(request, 'hello/requests10.html', context)
+        max_id = None
+    context = {'last_requests_list': last_requests_list, 'max_id': max_id}
+    return render(request, 'hello/requests_page.html', context)
 
 def chknewreq(request):
     logger.info(' -----------    chknewreq --------')

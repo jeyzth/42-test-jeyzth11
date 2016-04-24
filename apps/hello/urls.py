@@ -5,7 +5,7 @@ import views
 urlpatterns = patterns(
     '',
     url(r'^$', views.main_page, name='main_page'),
-    url(r'^requests$', views.requests10, name='requests10'),
-    url(r'^requests10$', views.requests10, name='requests10'),
+    url(r'^index.html$', views.main_page, name='main_page'),
+    url(r'^requests_page$', views.requests_page, name='requests_page'),
     url(r'^chknewreq$', views.chknewreq, name='chknewreq'),
 )

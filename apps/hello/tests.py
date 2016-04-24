@@ -110,19 +110,24 @@ class AppicantTest(TestCase):
         self.assertIn(u"Працюю у сфері телекомунікацій", ucontent)
         self.assertIn(u"бажано розробником на Python", ucontent)
 
-    def test_view_requests10(self):
+
+class MiddleTest(TestCase):
+    def setUp(self):
+        self.c = Client()
+
+    def test_view_requests_page(self):
         """  This test checks how view data for the template
-                  on requests10 page
+                  on requests_page
         """
         return "OK"
         fill_requests_model()
-        response = self.c.get(reverse('hello:requests10'))
+        response = self.c.get(reverse('hello:requests_page'))
         return "OK"
         ucontent = response.content.decode('utf8')
         print ucontent
         if(ucontent.find(u"table") == -1):
             fill_requests_model()
-            response = self.c.get(reverse('hello:requests10'))
+            response = self.c.get(reverse('hello:requests_page'))
             ucontent = response.content.decode('utf8')
         assert(ucontent.find(u"table") < ucontent.find(u"tbl"))
         for i in range(1, 4):
@@ -134,7 +139,7 @@ class AppicantTest(TestCase):
         """  This test checks:
              How middleware work for add requests.
         """
-        last_requests_list = Requests.objects.order_by('id').reverse()[:10]
+        last_requests_list = Requests.objects.order_by('-id')[:10]
         try:
             begin_max_id = last_requests_list[0].id
         except:
@@ -148,7 +153,7 @@ class AppicantTest(TestCase):
 
     def test_chk_new_requests(self):
         """ This test check backand for asynchron update
-            requests10
+            requests_page
         """
         make_10_requests()
         sleep(2)
