@@ -5,9 +5,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from django.utils import timezone as tz
-
+from django.core.urlresolvers import reverse
 from hello.models import Applicant, Requests
-
+from hello.forms import ApplicantForm
 logger = logging.getLogger(__name__)
 
 
@@ -66,3 +66,17 @@ def chknewreq(request):
                 data[key] = "O"
     return HttpResponse(json.dumps(data), content_type="application/json")  # flake8: noqa 
 
+def editor_page(request):
+    logger.info(' ----------- editor_page  --------')
+    if request.method == 'POST':
+         form = ApplicantForm(request.POST)
+         if form.is_valid():
+             form.save()
+             return HttpResponseRedirect(reverse('hello:main_page'))
+    else:
+        applicant = Applicant.objects.first()
+        form = ApplicantForm(instance=applicant)
+        
+    return render(request, 'hello/editor_page.html', {
+        'form': form, 'applicant': applicant,
+    })

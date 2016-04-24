@@ -12,8 +12,9 @@
       </div>
                
                 <div class="row">
-                     {% if applicant %}
-                     <form action="/home/editor_editor" method="post" > {% csrf_tohen  %}
+                  {% if applicant %}
+                     <form action="/home/editor_editor" method="post" > 
+                     {% csrf_token %}
                      <div class="col-lg-5">
                           <ul class="list-unstyled">
                               <li> 
@@ -35,7 +36,11 @@
                               Photo:
                               </li>
                               <li>
+                              <div style="width: 200px; height: 200px;  border: 2px
+                              solid
+                              black;" >
                               <img src="/media/evgen.png" width="200" height="200" alt ="Photo not found.">
+                              </div>
                               </li>
                      </div>
 
@@ -48,34 +53,34 @@
                               {{ form.email }} 
                           </li>
                           <li>
-                              {{ form.jaber.errors }}
-                              <label for="id_jaber">Jaber:</label>
-                              {{ form.jaber }} 
+                              {{ form.jabber.errors }}
+                              <label for="id_jaber">Jabber:</label>
+                              {{ form.jabber }} 
                           </li>
                           <li>
                               {{ form.skype.errors }}
-                              <label for="id_email">Skype:</label>
+                              <label for="id_skype">Skype:</label>
                               {{ form.skype }} 
                           </li>
                           <li> 
-                              Other contacts:
+                              {{ form.others.errors }}
+                              <label for="id_others">Others:</label>
+                              {{ form.others }} 
                           </li>
-                          <li>
-                               {{ applicant.others|linebreaksbr }}
-                          </li>
-                          <li>Bio:</li>
                           <li> 
-                               {{ applicant.bio|linebreaksbr }}
+                              {{ form.bio.errors }}
+                              <label for="id_others">Bio:</label>
+                              {{ form.bio }} 
                           </li>
                           </ul>
 
                           </ul>
                      </div>
-                 
-                 {% else %}
-                 <h3> Нажаль не знайдено жодного запису в таблиці! </h3>
-                 <p>Хтось видалив усі записи.</p>
-                 {% endif %}
+                  {% else %}
+                   <h3> Нажаль не знайдено жодного запису в таблиці! </h3>
+                   <p>Хтось видалив усі записи.</p>
+                  {% endif %}
+                                                                     
                  </div>
               
               <div class="row">
