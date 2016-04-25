@@ -48,20 +48,13 @@ def chknewreq(request):
         i = 0
         for req in last_requests_list:
             i = 1 + i
-            key = str(i) + "-1"
-            data[key] = req.id
-            key = str(i) + "-2"
+            data[str(i) + "-1"] = req.id
             dt = tz.localtime(req.query_dt)
-            sd = "%.2d.%.2d.%.2d %.2d:%.2d:%.2d"
-            sd = sd % (dt.day, dt.month, dt.year, dt.hour, dt.minute, dt.second)
-            data[key] = sd
-            key = str(i) + "-3"
-            data[key] = req.remote_ip
-            key = str(i) + "-4"
-            data[key] = req.query_string
-            key = str(i) + "-5"
+            data[str(i) + "-2"] = dt.strftime("%d.%m.%Y %H:%M:%S")
+            data[str(i) + "-3"] = req.remote_ip
+            data[str(i) + "-4"] = req.query_string
             if (req.id > cur_max_id ):
-                data[key] = "N"
+                data[str(i) + "-5"] = "N"
             else:
-                data[key] = "O"
+                data[str(i) + "-5"] = "O"
     return HttpResponse(json.dumps(data), content_type="application/json")  # flake8: noqa 
